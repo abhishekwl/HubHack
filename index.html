@@ -1,0 +1,56 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HubHack</title>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAKfEtpwYn1PA_2jNVcxLw51E6uN4Yv9Og",
+            authDomain: "hubli-9b07c.firebaseapp.com",
+            databaseURL: "https://hubli-9b07c.firebaseio.com",
+            projectId: "hubli-9b07c",
+            storageBucket: "hubli-9b07c.appspot.com",
+            messagingSenderId: "910556088731"
+        };
+        firebase.initializeApp(config);        
+        var database = firebase.database();
+
+        function getData(uid) {
+            database.ref('user').child(uid).on('value',(snapshot)=>{
+                snapshot = snapshot.val();
+                var age = snapshot.Age;
+                var cluster = snapshot.Cluster;
+                var email = snapshot.Email;
+                var husband = snapshot.Husband;
+                var mobile = snapshot.Mobile;
+                var name = snapshot.Name;
+                var taluk = snapshot.Taluk;
+                var village = snapshot.Village;
+                var first = snapshot.first;
+                var image = snapshot.image;
+                var online = snapshot.online;
+                var token = snapshot.token;
+                console.log(age,cluster,email,husband,mobile,name);
+            });
+        }
+
+        function setEntry(uid,entry,newValue) {       //ENTRY is the nane of the ref, eg: age,cluster,email...
+            database.ref('user').child(uid).child(entry).set(newValue);
+            console.log('Value of user.'+entry+' updated to '+newValue);
+        }
+
+        //Call these functions to read and write to Db
+        getData('iPnaEwGvOhgmpcsONfRoIOEql0A2');    //TEST
+        setEntry('iPnaEwGvOhgmpcsONfRoIOEql0A2', 'Age', 69);
+        setEntry('iPnaEwGvOhgmpcsONfRoIOEql0A2', 'Mobile', 1234567890);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
